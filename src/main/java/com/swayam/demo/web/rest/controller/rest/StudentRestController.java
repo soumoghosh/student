@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +36,16 @@ public class StudentRestController {
 		return lst;
 	}
 
-	@RequestMapping(path = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Student createStudent(@ModelAttribute Student student) {
+	@RequestMapping(path = "/create", method = RequestMethod.POST, consumes = {
+			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+	public Student createStudentByForm(@ModelAttribute Student student) {
+		LOGGER.info("input student: {}", student);
+		Student add = studentservice.createStudent(student);
+		return add;
+	}
+
+	@RequestMapping(path = "/create/json", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public Student createStudentByJson(@RequestBody Student student) {
 		LOGGER.info("input student: {}", student);
 		Student add = studentservice.createStudent(student);
 		return add;
