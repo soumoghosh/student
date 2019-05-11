@@ -8,18 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.swayam.demo.web.rest.dao.StudentDao;
 import com.swayam.demo.web.rest.model.Student;
+
 @Service
-public class SudentServiceImpl implements StudentService{
-	
+public class SudentServiceImpl implements StudentService {
+
 	private StudentDao studentdao;
-	
+
 	@Autowired
 	public SudentServiceImpl(StudentDao studentdao) {
 
-		this.studentdao=studentdao;
+		this.studentdao = studentdao;
 	}
-
-
 
 	@Override
 	public List<Student> getAllStudent() {
@@ -31,15 +30,16 @@ public class SudentServiceImpl implements StudentService{
 		return studentdao.deleteStudent(id);
 	}
 
+	@Transactional
 	@Override
 	public Student createStudent(Student student) {
 		return studentdao.createStudent(student);
 	}
+
 	@Transactional
 	@Override
 	public int updateStudent(Student student) {
 		return studentdao.updateStudent(student);
 	}
 
-	
 }
