@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.swayam.demo.web.rest.model.Student;
 import com.swayam.demo.web.rest.service.StudentService;
 
-@RequestMapping(path = "/rest") // this is for http://localhost:8090/student
-								// before student rest should be there and it is
-								// applicable only for this controller
+@RequestMapping(path = "/rest/student") // this is for
+										// http://localhost:8090/student
+// before student rest should be there and it is
+// applicable only for this controller
 @RestController
 public class StudentRestController {
 
@@ -30,7 +31,7 @@ public class StudentRestController {
 		this.studentservice = studentservice;
 	}
 
-	@RequestMapping(path = "/student", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public List<Student> getAllStudent() {
 		List<Student> lst = studentservice.getAllStudent();
 		return lst;
