@@ -1,4 +1,4 @@
-package com.swayam.demo.web.rest.controller;
+package com.swayam.demo.web.rest.controller.ui;
 
 import java.util.List;
 
@@ -12,7 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.swayam.demo.web.rest.model.Student;
 import com.swayam.demo.web.rest.service.StudentService;
 
-@Controller
+@RequestMapping(path="/ui")// this is for http://localhost:8090/student before student ui should be there and it is applicable only for this controller
+@Controller 
 public class StudentController {
 
 	private StudentService studentservice;

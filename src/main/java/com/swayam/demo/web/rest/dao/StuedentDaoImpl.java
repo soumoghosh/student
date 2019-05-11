@@ -51,10 +51,10 @@ public class StuedentDaoImpl implements StudentDao{
 	}
 
 	@Override
-	public int createStudent(Student student) {
+	public Student createStudent(Student student) {
 		String sql = "insert into student(name,age) values(?,?)";
-		int row = jdbctemplate.update(sql, new Object[]{student.getId(),student.getName(),student.getAge()});
-		return row;
+		int row = jdbctemplate.update(sql, student.getName(),student.getAge());
+		return student;
 	}
 
 

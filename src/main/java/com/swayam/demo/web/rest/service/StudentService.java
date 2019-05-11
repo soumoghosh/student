@@ -10,7 +10,7 @@ import com.swayam.demo.web.rest.model.Student;
 public interface StudentService {
 	public List<Student> getAllStudent();
 	public int deleteStudent(int id);
-	public int createStudent(Student student);
+	public Student createStudent(Student student);
 	public int updateStudent(Student student);
 	
 }

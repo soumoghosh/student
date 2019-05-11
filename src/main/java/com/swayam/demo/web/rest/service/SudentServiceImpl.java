@@ -32,7 +32,7 @@ public class SudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public int createStudent(Student student) {
+	public Student createStudent(Student student) {
 		return studentdao.createStudent(student);
 	}
 	@Transactional
