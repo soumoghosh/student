@@ -51,7 +51,7 @@ public class StuedentDaoImpl implements StudentDao {
 	@Override
 	public int deleteStudent(int id) {
 
-		String sql = "delete student where id=" + id + "";
+		String sql = "delete from student where id=" + id + "";
 		int row = jdbctemplate.update(sql);
 		return row;
 	}
@@ -69,7 +69,14 @@ public class StuedentDaoImpl implements StudentDao {
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 
 				PreparedStatement preparedstatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				preparedstatement.setString(1, student.getName());
+				preparedstatement.setString(1, student.getName()); // database
+																	// key is
+																	// auto
+																	// increment
+																	// so to get
+																	// that key
+																	// we have
+																	// used this
 				preparedstatement.setInt(2, student.getAge());
 				return preparedstatement;
 
@@ -81,10 +88,33 @@ public class StuedentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public int updateStudent(Student student) {
-		String sql = "update student set id=?,name=?,age=?";
-		int row = jdbctemplate.update(sql, student.getId(), student.getName(), student.getAge());
-		return row;
+	public Student updateStudent(Student student) {
+		// String sql = "update student set name=?,age=? where id= " +
+		// student.getId() + "";
+		// or
+		String sql = "update student set name=?,age=? where id=?";
+		// int row = jdbctemplate.update(sql, student.getName(),
+		// student.getAge());
+		// or
+		int row = jdbctemplate.update(sql, student.getName(), student.getAge(), student.getId());
+		return student;
+	}
+
+	@Override
+	public Student getStudentById(int id) {
+		String sql = "select * from student where id=?";
+		return jdbctemplate.queryForObject(sql, new Object[] { id }, new RowMapper<Student>() {
+			@Override
+			public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Student student = new Student();
+				student.setId(rs.getInt("id"));
+				student.setName(rs.getString("name"));
+				student.setAge(rs.getInt("age"));
+				return student;
+			}
+
+		});
+
 	}
 
 }

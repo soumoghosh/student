@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,4 +53,24 @@ public class StudentRestController {
 		return add;
 	}
 
+	@RequestMapping(path = "/update", method = RequestMethod.PUT, consumes = {
+			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+	public Student updateStudentByForm(@ModelAttribute Student student) {
+		Student update = studentservice.updateStudent(student);
+		return update;
+	}
+
+	@RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE, consumes = {
+			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+	public int deleteStudentByForm(@PathVariable int id) {
+		int row = studentservice.deleteStudent(id);
+		return row;
+	}
+
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET, consumes = {
+			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+	public Student getOneStudentById(@PathVariable int id) {
+		Student student = studentservice.getStudentById(id);
+		return student;
+	}
 }

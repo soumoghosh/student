@@ -25,6 +25,7 @@ public class SudentServiceImpl implements StudentService {
 		return studentdao.getAllStudent();
 	}
 
+	@Transactional
 	@Override
 	public int deleteStudent(int id) {
 		return studentdao.deleteStudent(id);
@@ -38,8 +39,13 @@ public class SudentServiceImpl implements StudentService {
 
 	@Transactional
 	@Override
-	public int updateStudent(Student student) {
+	public Student updateStudent(Student student) {
 		return studentdao.updateStudent(student);
+	}
+
+	@Override
+	public Student getStudentById(int id) {
+		return studentdao.getStudentById(id);
 	}
 
 }
