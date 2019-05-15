@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Add Student</h1>
-	<form action="/rest/student/create" method="post">
+	<form action="/save" method="post">
 		<div>
 			<div align="center">
 				 Name: <input id="name" name="name" type="text" />

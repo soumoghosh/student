@@ -7,19 +7,23 @@
 <title>Add Student</title>
 </head>
 <body>
-	<h1>Add Student</h1>
-	<form action="/rest/student/update" method="put">
+	<h1>Edit Student</h1>
+	<form:form  method="POST" commandName="student">
 		<div>
-			<div align="center">
-				 Name: <input id="name" name="name" type="text" />
+		<div align="center">
+				Id: <form:input  path="id" />
 			</div>
 			<div align="center">
-				 Age: <input id="age" name="age" type="text" />
+				 Name: <form:input path="name"   />
 			</div>
 			<div align="center">
-				<input id="submit" type="submit" value="Save student"/>
+				Age: <form:input path="age"   />
+			</div>
+			<div align="center">
+				<input id="submit" type="submit" value="Edit Person"/>
 			</div>
 		</div>
-	</form>
+	</form:form>
+	
 </body>
 </html>
