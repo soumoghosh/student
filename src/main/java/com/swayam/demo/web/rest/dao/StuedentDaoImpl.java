@@ -98,6 +98,7 @@ public class StuedentDaoImpl implements StudentDao {
 
 	@Override
 	public Student updateStudent(Student student) {
+
 		String sql = "update student set age=? where name=?";
 
 		int row = jdbctemplate.update(sql, student.getAge(), student.getName());
@@ -126,6 +127,23 @@ public class StuedentDaoImpl implements StudentDao {
 		String sql = "select count(*) from student where name= ?";
 		int count = jdbctemplate.queryForObject(sql, Integer.class, name);
 		return count == 1;
+	}
+
+	@Override
+	public Student getStudentByname(String name) {
+
+		String sql = "select * from student where name=?";
+		return jdbctemplate.queryForObject(sql, new Object[] { name }, new RowMapper<Student>() {
+			@Override
+			public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Student student = new Student();
+				student.setId(rs.getInt("id"));
+				student.setName(rs.getString("name"));
+				student.setAge(rs.getInt("age"));
+				return student;
+			}
+
+		});
 	}
 
 }

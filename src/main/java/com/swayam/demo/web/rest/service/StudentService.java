@@ -12,7 +12,9 @@ public interface StudentService {
 
 	Student createStudent(Student student);
 
-	// Student updateStudent(Student student);
+	// Student updateStudent(String name);
 
 	Student getStudentById(int id);
+
+	Student getStudentByName(String name);
 }

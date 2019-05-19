@@ -17,4 +17,6 @@ public interface StudentDao {
 	public Student getStudentById(int id);
 
 	boolean checkExistStudent(String name);
+
+	public Student getStudentByname(String name);
 }
