@@ -34,7 +34,11 @@ public class SudentServiceImpl implements StudentService {
 	@Transactional
 	@Override
 	public Student createStudent(Student student) {
-		return studentdao.createStudent(student);
+		if (studentdao.checkExistStudent(student.getName())) {
+			return studentdao.updateStudent(student);
+		} else {
+			return studentdao.createStudent(student);
+		}
 	}
 
 	/*

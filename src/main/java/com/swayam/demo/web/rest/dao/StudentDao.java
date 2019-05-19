@@ -12,7 +12,9 @@ public interface StudentDao {
 
 	public Student createStudent(Student student);
 
-	// public Student updateStudent(Student student);
+	public Student updateStudent(Student student);
 
 	public Student getStudentById(int id);
+
+	boolean checkExistStudent(String name);
 }

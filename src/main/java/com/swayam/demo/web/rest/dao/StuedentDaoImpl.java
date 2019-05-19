@@ -62,59 +62,47 @@ public class StuedentDaoImpl implements StudentDao {
 
 	@Override
 	public Student createStudent(Student student) {
+		String sql2 = "insert into student(name,age) values(?,?)";
+		// int row = jdbctemplate.update(sql, student.getName(),
+		// student.getAge());
 
-		String sql = "select count(*) from student where name = ?";
-		int row = jdbctemplate.queryForObject(sql, new Object[] { student.getName() }, Integer.class);
+		KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+		jdbctemplate.update(new PreparedStatementCreator() {
 
-		if (row > 0) {
-			String sql1 = "update student set age=? where name=?";
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 
-			int row1 = jdbctemplate.update(sql1, student.getAge(), student.getName());
-			return student;
-		} else {
-			String sql2 = "insert into student(name,age) values(?,?)";
-			// int row = jdbctemplate.update(sql, student.getName(),
-			// student.getAge());
+				PreparedStatement preparedstatement = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+				preparedstatement.setString(1, student.getName()); // database
+																	// key
+																	// is
+																	// auto
+																	// increment
+																	// so to
+																	// get
+																	// that
+																	// key
+																	// we
+																	// have
+																	// used
+																	// this
+				preparedstatement.setInt(2, student.getAge());
+				return preparedstatement;
 
-			KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-			jdbctemplate.update(new PreparedStatementCreator() {
-
-				@Override
-				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-
-					PreparedStatement preparedstatement = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
-					preparedstatement.setString(1, student.getName()); // database
-																		// key
-																		// is
-																		// auto
-																		// increment
-																		// so to
-																		// get
-																		// that
-																		// key
-																		// we
-																		// have
-																		// used
-																		// this
-					preparedstatement.setInt(2, student.getAge());
-					return preparedstatement;
-
-				}
-			}, generatedKeyHolder);
-			int id = generatedKeyHolder.getKey().intValue();
-			student.setId(id);
-			return student;
-		}
+			}
+		}, generatedKeyHolder);
+		int id = generatedKeyHolder.getKey().intValue();
+		student.setId(id);
+		return student;
 	}
 
-	/*
-	 * @Override public Student updateStudent(Student student) { // String sql =
-	 * "update student set name=?,age=? where id= " + // student.getId() + "";
-	 * // or String sql = "update student set name=?,age=? where id=?"; // int
-	 * row = jdbctemplate.update(sql, student.getName(), // student.getAge());
-	 * // or int row = jdbctemplate.update(sql, student.getName(),
-	 * student.getAge(), student.getId()); return student; }
-	 */
+	@Override
+	public Student updateStudent(Student student) {
+		String sql = "update student set age=? where name=?";
+
+		int row = jdbctemplate.update(sql, student.getAge(), student.getName());
+		return student;
+	}
 
 	@Override
 	public Student getStudentById(int id) {
@@ -131,6 +119,13 @@ public class StuedentDaoImpl implements StudentDao {
 
 		});
 
+	}
+
+	@Override
+	public boolean checkExistStudent(String name) {
+		String sql = "select count(*) from student where name= ?";
+		int count = jdbctemplate.queryForObject(sql, Integer.class, name);
+		return count == 1;
 	}
 
 }
