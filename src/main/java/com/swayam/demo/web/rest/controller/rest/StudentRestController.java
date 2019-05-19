@@ -53,12 +53,12 @@ public class StudentRestController {
 		return add;
 	}
 
-	@RequestMapping(path = "/update", method = RequestMethod.PUT, consumes = {
-			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-	public Student updateStudentByForm(@ModelAttribute Student student) {
-		Student update = studentservice.updateStudent(student);
-		return update;
-	}
+	/*
+	 * @RequestMapping(path = "/update", method = RequestMethod.PUT, consumes =
+	 * { MediaType.APPLICATION_FORM_URLENCODED_VALUE }) public Student
+	 * updateStudentByForm(@ModelAttribute Student student) { Student update =
+	 * studentservice.updateStudent(student); return update; }
+	 */
 
 	@RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE, consumes = {
 			MediaType.APPLICATION_FORM_URLENCODED_VALUE })

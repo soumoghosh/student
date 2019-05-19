@@ -37,11 +37,12 @@ public class SudentServiceImpl implements StudentService {
 		return studentdao.createStudent(student);
 	}
 
-	@Transactional
-	@Override
-	public Student updateStudent(Student student) {
-		return studentdao.updateStudent(student);
-	}
+	/*
+	 * @Transactional
+	 * 
+	 * @Override public Student updateStudent(Student student) { return
+	 * studentdao.updateStudent(student); }
+	 */
 
 	@Override
 	public Student getStudentById(int id) {

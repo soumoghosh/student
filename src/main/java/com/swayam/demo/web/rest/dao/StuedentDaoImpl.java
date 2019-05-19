@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -15,11 +17,13 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.swayam.demo.web.rest.controller.rest.StudentRestController;
 import com.swayam.demo.web.rest.model.Student;
 
 @Repository
 public class StuedentDaoImpl implements StudentDao {
 
+	private final Logger LOGGER = LoggerFactory.getLogger(StudentRestController.class);
 	private JdbcTemplate jdbctemplate;
 
 	@Autowired
@@ -58,47 +62,59 @@ public class StuedentDaoImpl implements StudentDao {
 
 	@Override
 	public Student createStudent(Student student) {
-		String sql = "insert into student(name,age) values(?,?)";
-		// int row = jdbctemplate.update(sql, student.getName(),
-		// student.getAge());
 
-		KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-		jdbctemplate.update(new PreparedStatementCreator() {
+		String sql = "select count(*) from student where name = ?";
+		int row = jdbctemplate.queryForObject(sql, new Object[] { student.getName() }, Integer.class);
 
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+		if (row > 0) {
+			String sql1 = "update student set age=? where name=?";
 
-				PreparedStatement preparedstatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				preparedstatement.setString(1, student.getName()); // database
-																	// key is
-																	// auto
-																	// increment
-																	// so to get
-																	// that key
-																	// we have
-																	// used this
-				preparedstatement.setInt(2, student.getAge());
-				return preparedstatement;
+			int row1 = jdbctemplate.update(sql1, student.getAge(), student.getName());
+			return student;
+		} else {
+			String sql2 = "insert into student(name,age) values(?,?)";
+			// int row = jdbctemplate.update(sql, student.getName(),
+			// student.getAge());
 
-			}
-		}, generatedKeyHolder);
-		int id = generatedKeyHolder.getKey().intValue();
-		student.setId(id);
-		return student;
+			KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+			jdbctemplate.update(new PreparedStatementCreator() {
+
+				@Override
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+
+					PreparedStatement preparedstatement = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+					preparedstatement.setString(1, student.getName()); // database
+																		// key
+																		// is
+																		// auto
+																		// increment
+																		// so to
+																		// get
+																		// that
+																		// key
+																		// we
+																		// have
+																		// used
+																		// this
+					preparedstatement.setInt(2, student.getAge());
+					return preparedstatement;
+
+				}
+			}, generatedKeyHolder);
+			int id = generatedKeyHolder.getKey().intValue();
+			student.setId(id);
+			return student;
+		}
 	}
 
-	@Override
-	public Student updateStudent(Student student) {
-		// String sql = "update student set name=?,age=? where id= " +
-		// student.getId() + "";
-		// or
-		String sql = "update student set name=?,age=? where id=?";
-		// int row = jdbctemplate.update(sql, student.getName(),
-		// student.getAge());
-		// or
-		int row = jdbctemplate.update(sql, student.getName(), student.getAge(), student.getId());
-		return student;
-	}
+	/*
+	 * @Override public Student updateStudent(Student student) { // String sql =
+	 * "update student set name=?,age=? where id= " + // student.getId() + "";
+	 * // or String sql = "update student set name=?,age=? where id=?"; // int
+	 * row = jdbctemplate.update(sql, student.getName(), // student.getAge());
+	 * // or int row = jdbctemplate.update(sql, student.getName(),
+	 * student.getAge(), student.getId()); return student; }
+	 */
 
 	@Override
 	public Student getStudentById(int id) {
