@@ -27,23 +27,15 @@ public class StudentController {
 		this.studentservice = studentservice;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public ModelAndView showCreateStudentPage() {
-		return new ModelAndView("student", "student", new Student()); // jsp
-																		// page
-																		// name(create_student)
+		return new ModelAndView("student", "studentObject", new Student());
 	}
 
 	@RequestMapping(path = "/save", method = RequestMethod.POST)
 	public ModelAndView saveStudentDetails(@ModelAttribute Student student) {
 		Student st = studentservice.createStudent(student);
-		return new ModelAndView("create_student", "student", st);
-	}
-
-	@RequestMapping(path = "/update", method = RequestMethod.POST)
-	public ModelAndView updateStudentDetails(@ModelAttribute Student student) {
-		Student st = studentservice.updateStudent(student);
-		return new ModelAndView("update_student", "student", st);
+		return new ModelAndView("student", "studentObject", st);
 	}
 
 	@RequestMapping(path = "/delete/{id}", method = RequestMethod.POST)

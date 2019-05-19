@@ -31,6 +31,12 @@ public class PersonRestController {
 		return ps;
 	}
 
+	@RequestMapping(path = "/add/json", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public Person addJsonPerson(@ModelAttribute Person person) {
+		Person ps = personservice.AddPerson(person);
+		return ps;
+	}
+
 	@RequestMapping(path = "/all", method = RequestMethod.GET, consumes = {
 			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
 	public List<Person> getAllPerson(@ModelAttribute Person person) {
