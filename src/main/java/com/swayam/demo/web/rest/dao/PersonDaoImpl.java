@@ -67,18 +67,67 @@ public class PersonDaoImpl implements PersonDao {
 
 	@Override
 	public int deletePerson(int id) {
-		String sql = "delete from person2 where id=?";
+
+		String sql = "delete from person2 where id=" + id;
 		int row = jdbctemplate.update(sql);
 
 		return row;
 	}
 
 	@Override
-	public Person updatePerson(int id) {
-		Person ps = new Person();
-		String sql = "update person2 set name=?,age=? where id=?";
-		int row = jdbctemplate.update(sql, ps.getAge(), ps.getName(), ps.getId());
-		return ps;
+	public Person updatePerson(Person person) {
+		String sql = "update person2 set age=? where name=?";
+		int row = jdbctemplate.update(sql, person.getAge(), person.getName());
+		return person;
+	}
+
+	@Override
+	public Person getSinglePerson(int id) {
+		String sql = "select * from person2 where id=?";
+		Person person = jdbctemplate.queryForObject(sql, new Object[] { id }, new RowMapper<Person>() {
+			@Override
+
+			public Person mapRow(ResultSet rs, int row) throws SQLException {
+				Person prsn = new Person();
+				prsn.setId(rs.getInt("id"));
+				prsn.setName(rs.getString("name"));
+				prsn.setAge(rs.getInt("age"));
+				return prsn;
+			}
+
+		});
+		return person;
+
+	}
+
+	@Override
+	public boolean checkExistPerson(String name) {
+
+		String sql = "select count(*) from person2 where name=?";
+		int count = jdbctemplate.queryForObject(sql, Integer.class, name);
+
+		if (count >= 1) {
+			return true;
+		} else
+			return false;
+	}
+
+	@Override
+	public Person getPersonById(int id) {
+		String sql = "select * from person2 where id=?";
+
+		return jdbctemplate.queryForObject(sql, new Object[] { id }, new RowMapper<Person>() {
+
+			@Override
+			public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Person ps = new Person();
+				ps.setId(rs.getInt("id"));
+				ps.setName(rs.getString("name"));
+				ps.setAge(rs.getInt("age"));
+				return ps;
+			}
+
+		});
 	}
 
 }

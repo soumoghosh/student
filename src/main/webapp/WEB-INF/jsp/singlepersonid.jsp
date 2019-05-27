@@ -4,20 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Add Student</title>
+<title>Single Person</title>
 </head>
 <body>
-	<h1>Add Student</h1>
-	<form action="/ui/student/save" method="post">
+	<h1>Single Person</h1>
+	<form action="/ui/person/" method="GET">
 		<div>
 			<div align="center">
-				 Name: <input id="name" name="name" type="text" value="${studentObject.name}" />
+				 Id: <input id="id" name="id" type="number" value="${person.id}" />
 			</div>
+
 			<div align="center">
-				 Age: <input id="age" name="age" type="text" value="${studentObject.age}"/>
-			</div>
-			<div align="center">
-				<input id="submit" type="submit" value="Save student"/>
+				<input id="submit" type="submit" value="GetDetails"/>
 			</div>
 		</div>
 	</form>

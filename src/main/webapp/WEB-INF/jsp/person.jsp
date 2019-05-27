@@ -4,17 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Add Student</title>
+<title>Add Person</title>
 </head>
 <body>
-	<h1>Add Student</h1>
-	<form action="/ui/student/save" method="post">
+	<h1>Add Person</h1>
+	<form action="/ui/person/save" method="post">
 		<div>
 			<div align="center">
-				 Name: <input id="name" name="name" type="text" value="${studentObject.name}" />
+				 Name: <input id="name" name="name" type="text" value="${personObj.name}" />
 			</div>
 			<div align="center">
-				 Age: <input id="age" name="age" type="text" value="${studentObject.age}"/>
+				 Age: <input id="age" name="age" type="text" value="${personObj.age}"/>
 			</div>
 			<div align="center">
 				<input id="submit" type="submit" value="Save student"/>

@@ -42,7 +42,7 @@ public class StudentController {
 	@RequestMapping(path = "/update/{name}", method = RequestMethod.GET)
 	public ModelAndView updateStudentDetails(@PathVariable String name) {
 		Student student = studentservice.getStudentByName(name);
-		return new ModelAndView("student", "studentObject", student);
+		return new ModelAndView("student_update", "updateObject", student);
 	}
 
 	@RequestMapping(path = "/delete/{id}", method = RequestMethod.GET)
@@ -60,6 +60,6 @@ public class StudentController {
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public ModelAndView getStudentById(@PathVariable int id) {
 		Student st = studentservice.getStudentById(id);
-		return new ModelAndView("student", "studentObject", st);
+		return new ModelAndView("single_student", "singlestudent", st);
 	}
 }

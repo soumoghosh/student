@@ -27,13 +27,13 @@ public class PersonRestController {
 	@RequestMapping(path = "/add", method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
 	public Person addPerson(@ModelAttribute Person person) {
-		Person ps = personservice.AddPerson(person);
+		Person ps = personservice.addPerson(person);
 		return ps;
 	}
 
 	@RequestMapping(path = "/add/json", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public Person addJsonPerson(@ModelAttribute Person person) {
-		Person ps = personservice.AddPerson(person);
+		Person ps = personservice.addPerson(person);
 		return ps;
 	}
 
@@ -51,10 +51,10 @@ public class PersonRestController {
 		return row;
 	}
 
-	@RequestMapping(path = "/update/{id}", method = RequestMethod.PUT, consumes = {
-			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-	public Person updatePerson(@PathVariable int id) {
-		Person person = personservice.updatePerson(id);
-		return person;
-	}
+	/*
+	 * @RequestMapping(path = "/update/{id}", method = RequestMethod.PUT,
+	 * consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }) public Person
+	 * updatePerson(@PathVariable int id) { Person person =
+	 * personservice.updatePerson(id); return person; }
+	 */
 }

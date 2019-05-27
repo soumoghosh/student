@@ -4,23 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Add Student</title>
+<title>Update Employee</title>
 </head>
 <body>
-	<h1>Add Student</h1>
-	<form action="/ui/student/save" method="post">
+	<h1>Update Employee</h1>
+	<form action="/ui/employee/save" method="post">
 		<div>
 			<div align="center">
-				 Name: <input id="name" name="name" type="text" value="${studentObject.name}" />
+				 Name: <input id="name" name="name" type="text" value="${employee.name}" />
 			</div>
 			<div align="center">
-				 Age: <input id="age" name="age" type="text" value="${studentObject.age}"/>
+				 Age: <input id="age" name="age" type="text" value="${employee.age}"/>
 			</div>
 			<div align="center">
-				<input id="submit" type="submit" value="Save student"/>
+				<input id="submit" type="submit" value="Update Employee"/>
 			</div>
 		</div>
 	</form>
 </body>
-
 </html>

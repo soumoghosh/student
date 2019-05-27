@@ -21,7 +21,10 @@ public class PersonServiceImpl implements PersonService {
 
 	@Transactional
 	@Override
-	public Person AddPerson(Person person) {
+	public Person addPerson(Person person) {
+		if (persondao.checkExistPerson(person.getName())) {
+			return persondao.updatePerson(person);
+		}
 		return persondao.addPerson(person);
 	}
 
@@ -36,10 +39,21 @@ public class PersonServiceImpl implements PersonService {
 		return persondao.deletePerson(id);
 	}
 
-	@Transactional
+	/*
+	 * @Transactional
+	 * 
+	 * @Override public Person updatePerson(int id) { return
+	 * persondao.updatePerson(id); }
+	 */
+
 	@Override
-	public Person updatePerson(int id) {
-		return persondao.updatePerson(id);
+	public Person getSinglePerson(int id) {
+		return persondao.getSinglePerson(id);
 	}
+
+	/*
+	 * @Override public Person getPersonById(int id) { return
+	 * persondao.getPersonById(id); }
+	 */
 
 }

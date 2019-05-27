@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.swayam.demo.web.rest.dao.EmployeeDao;
 import com.swayam.demo.web.rest.model.Employee;
@@ -18,21 +19,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.employeeDao = employeeDao;
 	}
 
+	@Transactional
 	@Override
 	public Employee addEmployee(Employee employee) {
-		return employeeDao.addEmployee(employee);
+		if (employeeDao.checkExistEmployee(employee.getName())) {
+			return employeeDao.updateEmployee(employee);
+		} else
+			return employeeDao.addEmployee(employee);
 	}
 
-	@Override
-	public Employee updateEmployee(int id) {
-		return employeeDao.updateEmployee(id);
-	}
+	/*
+	 * @Override public Employee updateEmployee(int id) { return
+	 * employeeDao.updateEmployee(id); }
+	 */
 
 	@Override
 	public List<Employee> allEmployee() {
 		return employeeDao.allEmployee();
 	}
 
+	@Transactional
 	@Override
 	public int deleteEmployee(int id) {
 		return employeeDao.deleteEmployee(id);

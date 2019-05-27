@@ -50,10 +50,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	@Override
-	public Employee updateEmployee(int id) {
-		String sql = "update employee2 set name=?,age=? where id=?";
-		Employee employee = new Employee();
-		int row = jdbctemplate.update(sql, employee.getId(), employee.getName(), employee.getAge());
+	public Employee updateEmployee(Employee employee) {
+		String sql = "update employee2 set age=? where name=?";
+		int row = jdbctemplate.update(sql, employee.getAge(), employee.getName());
 		return employee;
 	}
 
@@ -76,7 +75,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public int deleteEmployee(int id) {
-		String sql = "delete from employee2 where id=?";
+		String sql = "delete from employee2 where id=" + id;
 		int row = jdbctemplate.update(sql);
 		return row;
 	}
@@ -94,6 +93,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				return empl;
 			}
 		});
+	}
+
+	@Override
+	public boolean checkExistEmployee(String name) {
+		String sql = "select count(*)from employee2 where name=?";
+		int count = jdbctemplate.queryForObject(sql, Integer.class, name);
+		if (count >= 1) {
+			return true;
+		} else
+			return false;
 	}
 
 }

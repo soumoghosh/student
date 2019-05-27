@@ -12,6 +12,12 @@ public interface PersonDao {
 
 	public int deletePerson(int id);
 
-	public Person updatePerson(int id);
+	public Person updatePerson(Person person);
+
+	public Person getSinglePerson(int id);
+
+	boolean checkExistPerson(String name);
+
+	public Person getPersonById(int id);
 
 }

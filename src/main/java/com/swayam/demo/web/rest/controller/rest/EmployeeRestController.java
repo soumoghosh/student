@@ -13,12 +13,12 @@ import com.swayam.demo.web.rest.service.EmployeeService;
 
 @RequestMapping(path = "/rest/employee")
 @RestController
-public class EmployeeController {
+public class EmployeeRestController {
 
 	private EmployeeService employeeservice;
 
 	@Autowired
-	public EmployeeController(EmployeeService employeeservice) {
+	public EmployeeRestController(EmployeeService employeeservice) {
 		this.employeeservice = employeeservice;
 	}
 
@@ -29,12 +29,12 @@ public class EmployeeController {
 		return employee1;
 	}
 
-	@RequestMapping(path = "/update/{id}", method = RequestMethod.PUT, consumes = {
-			MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-	public Employee updateEmployee(@PathVariable int id) {
-		Employee employee = employeeservice.updateEmployee(id);
-		return employee;
-	}
+	/*
+	 * @RequestMapping(path = "/update/{id}", method = RequestMethod.PUT,
+	 * consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }) public
+	 * Employee updateEmployee(@PathVariable int id) { Employee employee =
+	 * employeeservice.updateEmployee(id); return employee; }
+	 */
 
 	@RequestMapping(path = "/delete/{id}", method = RequestMethod.DELETE, consumes = {
 			MediaType.APPLICATION_FORM_URLENCODED_VALUE })

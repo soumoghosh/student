@@ -7,7 +7,7 @@ import com.swayam.demo.web.rest.model.Employee;
 public interface EmployeeService {
 	public Employee addEmployee(Employee employee);
 
-	public Employee updateEmployee(int id);
+	// public Employee updateEmployee(int id);
 
 	public List<Employee> allEmployee();
 
