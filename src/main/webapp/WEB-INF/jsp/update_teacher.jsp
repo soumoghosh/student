@@ -9,9 +9,10 @@
 <body>
 	<h1>Update Teacher</h1>
 	<form action="/ui/teacher/save" method="post">
+		<input id="id" name="id" type="hidden" value="${teacher.id}" />
 		<div>
 		<div align="center">
-				 Wheel: <input id="name" name="name" type="text" value="${teacher.name}" />
+				 Name: <input id="name" name="name" type="text" value="${teacher.name}" />
 			</div>
 			<div align="center">
 				 Dept: <input id="dept" name="dept" type="text" value="${teacher.dept}" />

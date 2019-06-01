@@ -39,4 +39,9 @@ public class Teacher {
 		this.course = course;
 	}
 
+	@Override
+	public String toString() {
+		return "Teacher [id=" + id + ", name=" + name + ", dept=" + dept + ", course=" + course + "]";
+	}
+
 }

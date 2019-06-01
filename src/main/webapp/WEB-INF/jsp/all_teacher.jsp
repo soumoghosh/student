@@ -28,7 +28,7 @@
 		    <td>${teacher.dept}</td>
 		    <td>${teacher.course}</td>
             <td><a href="/ui/teacher/delete/${teacher.id}">Delete</a></td>
-		    <td><a href="/ui/teacher/update/${teacher.id}">Update</a></td>
+		    <td><a href="/ui/teacher/update?id=${teacher.id}">Update</a></td>
 		  </tr>
       </c:forEach>  
        <td><a href="/ui/teacher/add">ADD NEW TEACHER</a></td>

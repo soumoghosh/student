@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.swayam.demo.web.rest.model.Teacher;
@@ -31,6 +32,7 @@ public class TeacherController {
 
 	@RequestMapping(path = "/save", method = RequestMethod.POST)
 	public ModelAndView saveTeacher(@ModelAttribute Teacher teacher) {
+		// System.out.println("TeacherController.saveTeacher(): " + teacher);
 		Teacher teacher1 = teacherservice.addTeacher(teacher);
 		return new ModelAndView("redirect:/ui/teacher/all");
 	}
@@ -38,12 +40,12 @@ public class TeacherController {
 	@RequestMapping(path = "/all", method = RequestMethod.GET)
 	public ModelAndView getAllteacher() {
 		List<Teacher> listteacher = teacherservice.allTeacher();
-		System.out.println(listteacher.size());
+		// System.out.println(listteacher.size());
 		return new ModelAndView("all_teacher", "teacherList", listteacher);
 	}
 
-	@RequestMapping(path = "/update/{id}", method = RequestMethod.GET)
-	public ModelAndView updateTeacher(@PathVariable int id) {
+	@RequestMapping(path = "/update", method = RequestMethod.GET)
+	public ModelAndView updateTeacher(@RequestParam int id) {
 		Teacher teacher = teacherservice.getSingleTeacher(id);
 		return new ModelAndView("update_teacher", "teacher", teacher);
 	}

@@ -71,8 +71,8 @@ public class TeacherDaoImpl implements TeacherDao {
 
 	@Override
 	public Teacher updateTeacher(Teacher teacher) {
-		String sql = "update teacher1 set dept=?,course=? where name=?";
-		int row = jdbctemplate.update(sql, teacher.getDept(), teacher.getCourse(), teacher.getName());
+		String sql = "update teacher1 set name=?,dept=?,course=? where id=?";
+		int row = jdbctemplate.update(sql, teacher.getName(), teacher.getDept(), teacher.getCourse(), teacher.getId());
 		return teacher;
 
 	}
