@@ -21,13 +21,13 @@ import com.swayam.demo.web.rest.controller.rest.StudentRestController;
 import com.swayam.demo.web.rest.model.Student;
 
 @Repository
-public class StuedentDaoImpl implements StudentDao {
+public class StudentDaoImpl implements StudentDao {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(StudentRestController.class);
 	private JdbcTemplate jdbctemplate;
 
 	@Autowired
-	public StuedentDaoImpl(JdbcTemplate jdbctemplate) {
+	public StudentDaoImpl(JdbcTemplate jdbctemplate) {
 		this.jdbctemplate = jdbctemplate;
 	}
 
